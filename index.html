@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agendamento de Consulta</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 20px;
+            background-color: #e7e7e7;
+            color: #333;
+            text-align: center;
+        }
+
+        h1 {
+            text-align: center;
+            color: #007BFF;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        .horarios {
+            margin: 20px 0;
+            padding: 10px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        table {
+            width: 30%;
+            margin: 0 auto;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .horario {
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .horario:hover {
+            background-color: #e9ecef;
+        }
+
+        .horario.selecionado {
+            text-decoration: underline;
+            color: blue;
+            background-color: #d1ecf1;
+        }
+
+        .horario.disponivel {
+            color: green;
+        }
+
+        .horario.indisponivel {
+            text-decoration: line-through;
+            color: red;
+            pointer-events: none;
+            background-color: #f8d7da;
+        }
+
+        .botao-whatsapp,
+        .botao-confirmar {
+            margin-top: 20px;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        .botao-whatsapp {
+            background-color: #25D366;
+            color: white;
+        }
+
+        .botao-whatsapp:hover {
+            background-color: #1da851;
+        }
+
+        .botao-confirmar {
+            background-color: #007BFF;
+            color: white;
+        }
+
+        .botao-confirmar:hover {
+            background-color: #0056b3;
+        }
+
+        .biografia,
+        .quem-somos {
+            margin: 20px 0;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .imagens {
+            display: flex;
+            justify-content: center;
+            margin: 10px 0;
+        }
+
+        .imagens img {
+            width: 200px;
+            height: auto;
+            margin: 0 10px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        select {
+            padding: 3px;
+            border-radius: 7px;
+        }
+
+        input {
+            padding: 3px;
+            border-radius: 7px;
+            text-align: center;
+        }
+
+        option {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Agendamento de Consulta</h1>
+
+    <section class="biografia">
+        <h2>Bem Vindo(a)</h2>
+        <p>Bem-vindo à nossa clínica! Aqui, oferecemos um atendimento de qualidade com profissionais altamente
+            capacitados.</p>
+    </section>
+    <section>
+        <style>
+            .gallery {
+                position: relative;
+                max-width: 400px;
+                margin: auto;
+                overflow: hidden;
+                border-radius: 30px;
+            }
+
+            .slides {
+                display: flex;
+                transition: transform 0.5s ease;
+            }
+
+            .slide {
+                min-width: 100%;
+                height: auto;
+            }
+
+            .prev {
+                left: 10px;
+                cursor: pointer;
+            }
+
+            .next {
+                right: 10px;
+                cursor: pointer;
+            }
+
+            img {
+                padding: 7px;
+            }
+        </style>
+        <div class="gallery">
+            <button class="prev" onclick="moveSlide(-1)">&#10094;</button>
+            <div class="slides">
+                <img src="foto 1.jpg" class="slide" alt="Imagem 1">
+                <img src="foto 1.jpg" class="slide" alt="Imagem 2">
+                <img src="foto 1.jpg" class="slide" alt="Imagem 3">
+            </div>
+            <button class="next" onclick="moveSlide(1)">&#10095;</button>
+        </div>
+        <script>
+            let slideIndex = 0;
+            showSlides();
+
+            function showSlides() {
+                const slides = document.getElementsByClassName("slide");
+                for (let i = 0; i < slides.length; i++) {
+                    slides[i].style.display = "none";
+                }
+                slideIndex++;
+                if (slideIndex > slides.length) { slideIndex = 1 }
+                slides[slideIndex - 1].style.display = "block";
+                setTimeout(showSlides, 5000); // Muda a imagem a cada 2 segundos
+            }
+
+            function moveSlide(n) {
+                slideIndex += n;
+                const slides = document.getElementsByClassName("slide");
+                if (slideIndex > slides.length) { slideIndex = 1 }
+                if (slideIndex < 1) { slideIndex = slides.length }
+                for (let i = 0; i < slides.length; i++) {
+                    slides[i].style.display = "none";
+                }
+                slides[slideIndex - 1].style.display = "block";
+            }
+
+        </script>
+    </section>
+
+    <section class="quem-somos">
+        <h2>Quem Somos</h2>
+        <p>Nosso objetivo é proporcionar um ambiente acolhedor e seguro para todos os nossos pacientes.</p>
+    </section>
+    <section class="quem-somos"><label for="medico">Escolha o médico:</label><br>
+        <select id="medico">
+            <option>-:-</option>
+            <option value="medico1">Dr. 1 - Particular</option>
+            <option value="medico2">Dr. 2 - Convênio</option>
+            <option value="medico3">Dr. 3 - Particular</option>
+        </select><br><br>
+        <label for="procedimento">Escolha o procedimento:</label><br>
+        <select id="procedimento">
+            <option>-:-</option>
+            <option value="limpeza">Limpeza Dental</option>
+            <option value="restauracao">Restauração</option>
+            <option value="canal">Tratamento de Canal</option>
+            <option value="extração">Extração</option>
+        </select><br>
+    </section>
+    <div class="horarios">
+        <label for="data">
+            <h2>Escolha a data:</h2>
+        </label><br>
+        <input type="date" id="data" />
+        <h2>Horários disponíveis:</h2>
+        <table>
+            <tr>
+                <td class="horario" data-horario="09:00">09:00</td>
+            </tr>
+            <tr>
+                <td class="horario" data-horario="10:00">10:00</td>
+            </tr>
+            <tr>
+                <td class="horario" data-horario="14:00">14:00</td>
+            </tr>
+            <tr>
+                <td class="horario" data-horario="16:00">16:00</td>
+            </tr>
+        </table>
+    </div>
+    <section class="quem-somos">
+        <label for="pagamento">Atendimento:</label><br>
+        <select id="pagamento">
+            <option value="particular">Particular</option>
+            <option value="convenio">Convênio</option>
+        </select><br><br>
+        <label for="nome">Nome:</label><br>
+        <input type="text" id="nome" /><br><br>
+        <label for="telefone">Telefone:</label><br>
+        <input type="tel" id="telefone" /><br><br>
+        <button class="botao-whatsapp" id="enviar-whatsapp">Enviar para WhatsApp</button>
+    </section>
+    <script>
+        const horarios = document.querySelectorAll('.horario');
+        const dataInput = document.getElementById('data');
+        const medicoSelect = document.getElementById('medico');
+        const procedimentoSelect = document.getElementById('procedimento');
+        const nomeInput = document.getElementById('nome');
+        const telefoneInput = document.getElementById('telefone');
+        const pagamentoSelect = document.getElementById('pagamento');
+        const agendamentos = JSON.parse(localStorage.getItem('agendamentos')) || {};
+        let horarioSelecionado = null;
+
+        function abrirPopup(imagem) {
+            const popup = document.getElementById('popup');
+            const popupImg = document.getElementById('popup-img');
+            popupImg.src = imagem;
+            popup.classList.add('active');
+        }
+
+        function fecharPopup() {
+            const popup = document.getElementById('popup');
+            popup.classList.remove('active');
+        }
+
+        function atualizarHorarios() {
+            const dataSelecionada = dataInput.value.split('-').reverse().join('/');
+            const medicoSelecionado = medicoSelect.value;
+            horarios.forEach(horario => {
+                const horarioValue = horario.getAttribute('data-horario');
+                if (agendamentos[medicoSelecionado] && agendamentos[medicoSelecionado][dataSelecionada] && agendamentos[medicoSelecionado][dataSelecionada].includes(horarioValue)) {
+                    horario.classList.add('indisponivel');
+                } else {
+                    horario.classList.remove('indisponivel');
+                    horario.classList.add('disponivel');
+                }
+            });
+        }
+
+        horarios.forEach(horario => {
+            horario.addEventListener('click', () => {
+                const dataSelecionada = dataInput.value.split('-').reverse().join('/');
+                const horarioValue = horario.getAttribute('data-horario');
+                if (horarioSelecionado) {
+                    horarioSelecionado.classList.remove('selecionado');
+                }
+                horarioSelecionado = horario;
+                horario.classList.add('selecionado');
+            });
+        });
+
+        dataInput.addEventListener('change', atualizarHorarios);
+        medicoSelect.addEventListener('change', atualizarHorarios);
+
+        document.getElementById('enviar-whatsapp').addEventListener('click', () => {
+            const dataSelecionada = dataInput.value.split('-').reverse().join('/');
+            const medicoSelecionado = medicoSelect.value;
+            const procedimentoSelecionado = procedimentoSelect.value;
+            const nome = nomeInput.value;
+            const telefone = telefoneInput.value;
+            const pagamento = pagamentoSelect.value;
+            const horarioValue = horarioSelecionado ? horarioSelecionado.getAttribute('data-horario') : '';
+            const mensagem = `Agendei uma consulta com ${medicoSelecionado} 
+             
+        Procedimento: ${procedimentoSelecionado} 
+        Dia: ${dataSelecionada} 
+        Horário: ${horarioValue}
+        Nome: ${nome} 
+        Telefone: ${telefone} 
+        Pagamento: ${pagamento}`;
+            const numeroWhatsApp = '5599992247544';
+            const urlWhatsApp = `https://api.whatsapp.com/send?phone=${numeroWhatsApp}&text=${encodeURIComponent(mensagem)}`;
+            const ultimaMensagem = localStorage.getItem('ultimaMensagem');
+            const agora = new Date().getTime();
+
+            if (!ultimaMensagem || (agora - ultimaMensagem) > 180000) {
+                localStorage.setItem('ultimaMensagem', agora);
+                window.open(urlWhatsApp, '_blank');
+                confirmarAgendamento(dataSelecionada, medicoSelecionado, horarioValue);
+            } else {
+                alert('Você só pode enviar uma mensagem a cada 24 horas.');
+            }
+        });
+
+        function confirmarAgendamento(dataSelecionada, medicoSelecionado, horarioValue) {
+            if (dataSelecionada && horarioValue) {
+                if (!agendamentos[medicoSelecionado]) {
+                    agendamentos[medicoSelecionado] = {};
+                }
+                if (!agendamentos[medicoSelecionado][dataSelecionada]) {
+                    agendamentos[medicoSelecionado][dataSelecionada] = [];
+                }
+                if (!agendamentos[medicoSelecionado][dataSelecionada].includes(horarioValue)) {
+                    agendamentos[medicoSelecionado][dataSelecionada].push(horarioValue);
+                    localStorage.setItem('agendamentos', JSON.stringify(agendamentos));
+                    atualizarHorarios();
+                    alert('Agendamento confirmado para o dia ' + dataSelecionada + ' no horário ' + horarioValue);
+                } else {
+                    alert('Este horário já está agendado para esta data.');
+                }
+            } else {
+                alert('Por favor, selecione uma data e um horário.');
+            }
+        }
+    </script>
+</body>
+
+</html>
